@@ -2,6 +2,7 @@
     "compilerOptions": {
         "allowJs": true,
         "checkJs": true,
-        "strict": false
+        "strict": false,
+        "jsx": "preserve"
     }
 }
