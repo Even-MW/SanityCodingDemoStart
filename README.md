@@ -1,5 +1,5 @@
 # Hello and welcome to this cource in Sanity and Next.js
-## If you want to code along, please complete step 1 to 6 before the workshop.
+## If you want to code along, please complete step 1 to 5 before the workshop.
 
 > Enviroment requirements: 
 > * node version 16.14.2 -> https://nodejs.org/dist/v16.14.2/node-v16.14.2.pkg 
@@ -13,6 +13,8 @@ First, [create an account on Sanity](https://sanity.io).
 After creating an account, install the Sanity cli from npm `npm i -g @sanity/cli`.
 
 ### Step 2. Create a new Sanity project
+
+Clone the project.
 
 In the studio folder run `sanity init` to initialize a new studio project.
 
@@ -51,29 +53,73 @@ SANITY_PREVIEW_SECRET=...
 
 
 
-### Step 5. Populate Content
+### Step 5. Run Next.js and Saniy in development mode
 
-To add some content go to your Sanity studio project directory and run `sanity start`.
+To run sanity, in the **studio** folder run the following:
 
-After the project has started and you have navigated to the URL given in the terminal, select **Author** and create a new record.
+```bash
+npm start
 
-- You just need **1 Author record**.
-- Use dummy data for the text.
-- For the image, you can download one from [Unsplash](https://unsplash.com/).
+```
 
-Next, select **Post** and create a new record.
-
-- We recommend creating at least **2 Post records**.
-- Use dummy data for the text.
-- You can write markdown for the **Content** field.
-- For the images, you can download ones from [Unsplash](https://unsplash.com/).
-- Pick the **Author** you created earlier.
-
-**Important:** For each post record, you need to click **Publish** after saving. If not, the post will be in the draft state.
-
-### Step 6. Run Next.js in development mode
+To run next.js, in the **web** folder run the following: 
 
 ```bash
 npm install
 npm run dev
 ```
+
+
+> You should now have a simple next.js application up and running, not much content yet. But we will fix that in the live course. 
+> You should also have an empty sanity project up a running. 
+
+
+
+## Good job on coming this far, we will start on Step 6 live in work work. So for now this is good!
+
+
+### Step 6. Create a author schema in sanity
+
+We don't have the options to add much content in our cms yet, let's fix that. 
+
+First let's make a new file in our studio in the folder **/documents** under schemas, we will call it **author** and add the following code: 
+
+* First we define the name, type and title
+
+```
+export default {
+    name: 'author',
+    type: 'document',
+    title: 'Author',
+    fields: [
+      
+    ],
+  }
+```
+
+ * We then add name object under field
+
+
+```
+      {
+        name: 'name',
+        title: 'Name',
+        type: 'string',
+      },
+```
+
+* Finally we add a image object for our profile image
+
+
+```
+      {
+        name: 'picture',
+        title: 'Picture',
+        type: 'image',
+      },
+```
+
+
+
+
+
