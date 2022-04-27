@@ -26,11 +26,15 @@ export default {
       name: "shortIntro",
       title: "Short intro",
       type: "string",
+      validation: (Rule) => Rule.max(40),
     },
     {
       name: "coverImage",
       title: "Cover Image",
       type: "image",
+      options: {
+        hotspot: true,
+      },
     },
     {
       name: "date",
