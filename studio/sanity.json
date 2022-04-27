@@ -1,11 +1,11 @@
 {
   "root": true,
+  "api": {
+    "projectId": "gfccca6v",
+    "dataset": "codeingdemo"
+  },
   "project": {
     "name": "SanityCodingDemo"
-  },
-  "api": {
-    "projectId": "ci94q5up",
-    "dataset": "production"
   },
   "plugins": [
     "@sanity/base",
@@ -14,9 +14,6 @@
     "@sanity/default-login",
     "@sanity/desk-tool",
     "@sanity/production-preview",
-    "seo-pane",
-    "dashboard-widget-structure-menu",
-    "dashboard-widget-document-list",
     "iframe-pane"
   ],
   "env": {
@@ -32,12 +29,12 @@
       "path": "./schemas/schema"
     },
     {
-      "implements": "part:@sanity/desk-tool/structure",
-      "path": "./deskStructure.js"
+      "name": "part:@sanity/desk-tool/structure",
+      "path": "./deskStructure.ts"
     },
     {
       "implements": "part:@sanity/production-preview/resolve-production-url",
-      "path": "./resolveProductionUrl.js"
+      "path": "./resolveProductionUrl.ts"
     }
   ]
 }
