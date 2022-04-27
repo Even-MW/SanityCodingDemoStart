@@ -1,12 +1,13 @@
-import markdownStyles from "./markdown-styles.module.css";
-import BlockContent from "@sanity/block-content-to-react";
-import getYouTubeId from "get-youtube-id";
+import {PortableText} from '@portabletext/react';
+import {PortableTextComponents} from '@portabletext/react'
 import YouTube from "react-youtube";
+import getYouTubeId from "get-youtube-id";
+import markdownStyles from "./markdown-styles.module.css";
 
-const serializers = {
+const serializers: PortableTextComponents = {
     types: {
-        youtube: ({ node }) => {
-            const { url } = node;
+        youtube: ({ value }) => {
+            const { url } = value;
             const id = getYouTubeId(url);
             return <YouTube videoId={id} />;
         },
@@ -16,7 +17,7 @@ const serializers = {
 export default function PostBody({ content }) {
     return (
         <div className="mx-auto max-w-2xl">
-            <BlockContent blocks={content} className={markdownStyles.markdown} serializers={serializers} />
+            <PortableText value={content} components={serializers} />
         </div>
     );
 }
