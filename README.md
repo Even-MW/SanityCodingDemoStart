@@ -233,6 +233,8 @@ https://www.sanity.io/docs/reference-type
 ### Step 8. Add a desk structure and preview
 https://www.sanity.io/docs/structure-builder-introduction
 
+>When we do changes in this step we need to restart our studio build for every change. You stop the build with `cmd/ctrl + c`. 
+
 We have startet on this for you in the `deskStructure.ts`file. But we need to let the studio know this exist, so in out sanity.json file we will add the following under the parts array.
 
 ```json
@@ -291,6 +293,8 @@ Add the following to items array:
           )
       ),
 ```
+
+> Between each `S.listItem()` in the array there is also possible to add a divider. Just add: `S.divider()`
 
 Finally we need to add support for new schemas, so that we dont always have to add a listItem for each new schema we make. 
 
