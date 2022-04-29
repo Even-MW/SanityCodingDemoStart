@@ -16,6 +16,8 @@ After creating an account, install the Sanity cli from npm `npm i -g @sanity/cli
 
 Clone the project.
 
+In your terminal run `sanity login`, choose the same login option that i used creating your sanity account. 
+
 In the studio folder run `sanity init` to initialize a new studio project.
 
 This will be where we manage our data.
