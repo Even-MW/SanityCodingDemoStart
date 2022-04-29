@@ -3,6 +3,7 @@ import { MdAccountCircle, MdChatBubble } from "react-icons/md";
 import Iframe from "sanity-plugin-iframe-pane";
 import S from "@sanity/desk-tool/structure-builder";
 import resolveProductionUrl from "./resolveProductionUrl";
+
 // We filter document types defined in structure to prevent
 // them from being listed twice
 

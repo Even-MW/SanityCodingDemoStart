@@ -2,7 +2,7 @@
   "root": true,
   "api": {
     "projectId": "yourproj",
-    "dataset": "yoursets"
+    "dataset": "yourset"
   },
   "project": {
     "name": "SanityCodingDemo"
@@ -28,10 +28,6 @@
     {
       "name": "part:@sanity/base/schema",
       "path": "./schemas/schema"
-    },
-    {
-      "name": "part:@sanity/desk-tool/structure",
-      "path": "./deskStructure.ts"
     },
     {
       "implements": "part:@sanity/production-preview/resolve-production-url",
