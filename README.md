@@ -77,7 +77,7 @@ npm run dev
 
 
 
-## Good job on coming this far, we will start on Step 6 live in work work. So for now this is good!
+## Good job on coming this far, we will start on Step 6 live in Work-Work. So for now this is good!
 
 
 ### Step 6. Create a author schema in sanity
