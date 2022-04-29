@@ -1,4 +1,4 @@
-# Hello and welcome to this cource in Sanity and Next.js
+# Hello and welcome to this course in Sanity and Next.js
 ## If you want to code along, please complete step 1 to 5 before the workshop.
 
 > Enviroment requirements: 
@@ -18,7 +18,7 @@ Clone the project.
 
 In your terminal run `sanity login`, choose the same login option that i used creating your sanity account. 
 
-In the studio folder run `sanity init` to initialize a new studio project. This will ask you to override the exisiting configuration, say `yes`to this. 
+In the studio folder run `sanity init` to initialize a new studio project. This will ask you to override the exisiting configuration, say `yes` to this. 
 
 This will be where we manage our data.
 
