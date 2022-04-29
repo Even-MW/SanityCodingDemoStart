@@ -1,10 +1,10 @@
-import S from "@sanity/desk-tool/structure-builder";
-import { MdChatBubble, MdAccountCircle } from "react-icons/md";
-import resolveProductionUrl from "./resolveProductionUrl";
+import { MdAccountCircle, MdChatBubble } from "react-icons/md";
+
 import Iframe from "sanity-plugin-iframe-pane";
+import S from "@sanity/desk-tool/structure-builder";
+import resolveProductionUrl from "./resolveProductionUrl";
 // We filter document types defined in structure to prevent
 // them from being listed twice
-const hiddenDocTypes = (listItem) => !["post", "author", "media.tag"].includes(listItem.getId());
 
 export const getDefaultDocumentNode = () => {
     // Return all documents with just 1 view: the form
@@ -24,15 +24,4 @@ export default () =>
     S.list()
         .title("Site")
         .items([
-            S.listItem()
-                .title("Posts")
-                .icon(MdChatBubble)
-                .schemaType("post")
-                .child(S.documentTypeList("post").title("Posts")),
-            S.listItem()
-                .title("Authors")
-                .icon(MdAccountCircle)
-                .schemaType("author")
-                .child(S.documentTypeList("author").title("Authors")),
-            ...S.documentTypeListItems().filter(hiddenDocTypes),
         ]);

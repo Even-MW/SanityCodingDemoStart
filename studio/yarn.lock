@@ -9282,7 +9282,7 @@ sanity-diff-patch@^1.0.9:
   dependencies:
     diff-match-patch "^1.0.5"
 
-sanity-plugin-asset-source-unsplash@^0.2.0:
+sanity-plugin-asset-source-unsplash@^0.2.1:
   version "0.2.1"
   resolved "https://registry.npmjs.org/sanity-plugin-asset-source-unsplash/-/sanity-plugin-asset-source-unsplash-0.2.1.tgz#a4535294e16bbf8a4f6eda26ec979be02256d54a"
   integrity sha512-vt+lGcL1H5szaQNUoGWz6F0/5FYIo5fWkmavCuFqDHD8tGgagc5JdHJxYBfGxd5TEEgFzA+Plk3Wdhog1CMohg==

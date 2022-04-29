@@ -1,8 +1,8 @@
 {
   "root": true,
   "api": {
-    "projectId": "gfccca6v",
-    "dataset": "codeingdemo"
+    "projectId": "yourproj",
+    "dataset": "yoursets"
   },
   "project": {
     "name": "SanityCodingDemo"
@@ -14,7 +14,8 @@
     "@sanity/default-login",
     "@sanity/desk-tool",
     "@sanity/production-preview",
-    "iframe-pane"
+    "iframe-pane",
+    "asset-source-unsplash"
   ],
   "env": {
     "development": {
