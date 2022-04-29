@@ -230,10 +230,119 @@ https://www.sanity.io/docs/reference-type
 },
 ```
 
-### Step 8. Start building the Demo Page
+### Step 8. Add a desk structure and preview
+https://www.sanity.io/docs/structure-builder-introduction
+
+We have startet on this for you in the `deskStructure.ts`file. But we need to let the studio know this exist, so in out sanity.json file we will add the following under the parts array.
+
+```json
+{
+  "name": "part:@sanity/desk-tool/structure",
+  "path": "./deskStructure.ts"
+}
+```
+
+We will no longer see our posts and authors, because our deskStructur is an empty list. 
+We fix this by adding a listItem. hehe
+
+Inside the items array on line 27 of the deskStructure, add the following to the array: 
+
+```ts
+S.listItem()
+  .title("Posts")
+  .icon(MdChatBubble)
+  .schemaType("post")
+  .child(S.documentTypeList("post").title("Posts")),
+```
+
+Now that we see our post lets add the same for authors, add the following to the items array
+
+```ts
+S.listItem()
+  .title("Authors")
+  .icon(MdAccountCircle)
+  .schemaType("author")
+  .child(S.documentTypeList("author").title("Authors")),
+```
+
+When you go into a post now you can see that there is a new tab called preview. This is been added with the `getDefaultDocumentNode` function in the deskStructur. This is set up by us. You can read more about it here: https://www.sanity.io/docs/preview-content-on-site 
 
 
-#### Add a title to the document
+
+#### Now that we yet again can see out posts and authors, lets add a menu that sorts the posts by author
+This is where we see the usefullness of the deskStructure
+
+Add the following to items array:
+
+```ts
+ S.listItem()
+   .title("Posts by author")
+   .icon(MdGroup)
+   .child(
+     S.documentTypeList("author")
+       .title("Posts by author")
+       .child(
+         (_id) =>
+           S.documentList("post")
+             .schemaType("post")
+             .title("Posts by author")
+             .filter('_type == "post" && author._ref == $_id')
+             .params({ _id })
+          )
+      ),
+```
+
+Finally we need to add support for new schemas, so that we dont always have to add a listItem for each new schema we make. 
+
+As the final item of our list items we destructure the rest of the documentTypeListItems
+
+Add the following
+```ts
+  ...S.documentTypeListItems()
+```
+
+
+But now we get a dublicate of the author and post, and we don't need that. So lets filter those out.
+
+Under our comments on line 7 and 8 in deskStructur.ts add the following function: 
+
+```ts
+const hiddenDocTypes = (listItem) => !["post", "author"].includes(listItem.getId());
+```
+
+Now we need to add our new function to our destructured function, update it like this:
+
+```ts
+  ...S.documentTypeListItems().filter(hiddenDocTypes),
+```
+
+### Step 9. Lets start building a Demo Page
+
+We start out with making a new file under the documents folder called `demoPage.ts``
+
+And add the following: 
+
+```ts 
+export default {
+    name: 'demoPage',
+    type: 'document',
+    title: 'Demo Page',
+    fields: [
+      
+    ],
+}
+```
+
+#### Add a title to the document in the fields array
+
+```ts
+ {
+   title: 'Title',
+   name: 'title',
+   type: 'string,
+ }
+```
+
 #### Add the proprty for slug
 https://www.sanity.io/docs/slug-type
 ```ts
@@ -690,28 +799,6 @@ export default {
 }
 ``` 
 
-### Step 9. Customize the desk structure
-https://www.sanity.io/docs/structure-builder-introduction
-
-#### Add a menu for posts by author in deskStructure.js at line 53
-
-```ts
- S.listItem()
-   .title("Posts by author")
-   .icon(MdGroup)
-   .child(
-     S.documentTypeList("author")
-       .title("Posts by author")
-       .child(
-         (_id) =>
-           S.documentList("post")
-             .schemaType("post")
-             .title("Posts by author")
-             .filter('_type == "post" && author._ref == $_id')
-             .params({ _id })
-          )
-      ),
-```
 
 ### Step 10. Add a dashboard to the studio
 https://www.sanity.io/docs/dashboard
