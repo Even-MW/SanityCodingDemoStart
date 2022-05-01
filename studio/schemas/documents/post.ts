@@ -23,18 +23,12 @@ export default {
       of: [{ type: "block" }],
     },
     {
-      name: "shortIntro",
-      title: "Short intro",
-      type: "string",
-      validation: (Rule) => Rule.max(40),
-    },
-    {
       name: "coverImage",
       title: "Cover Image",
       type: "image",
       options: {
-        hotspot: true,
-      },
+        hotspot: true
+      }
     },
     {
       name: "date",
@@ -47,5 +41,6 @@ export default {
       type: "reference",
       to: [{ type: "author" }],
     },
+
   ],
 };
