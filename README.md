@@ -405,10 +405,14 @@ https://www.sanity.io/docs/slug-type
 },
  ```
  
- #### Add an initial value to the published date field
+ We can also add an initial value to the published date field
 https://www.sanity.io/docs/initial-value-templates
 
-``` initialValue: (new Date()).toISOString()```
+Add the following under type: 
+
+```ts
+ initialValue: (new Date()).toISOString()
+```
 
 ### Add a poster image field
 https://www.sanity.io/docs/image-type
