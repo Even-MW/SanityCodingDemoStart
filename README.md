@@ -133,6 +133,8 @@ export default {
 
 Let's make a post schema for our blog
 
+Create a new file under the **/documents** folder called **post.ts**.
+
 We start out defining the name, type, title and fields as an empty array
 
 ```ts
@@ -145,6 +147,8 @@ export default {
   ],
 };
 ```
+
+> Remeber to import this file in the **schema.ts** file under types. 
 
 #### Lets start by adding a title
 
