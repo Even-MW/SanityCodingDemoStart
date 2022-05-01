@@ -239,7 +239,7 @@ https://www.sanity.io/docs/structure-builder-introduction
 
 >When we do changes in this step we need to restart our studio build for every change. You stop the build with `cmd/ctrl + c`. 
 
-We have startet on this for you in the `deskStructure.ts`file. But we need to let the studio know this exist, so in out sanity.json file we will add the following under the parts array.
+We have startet on this for you in the `deskStructure.ts`file. But we need to let the studio know this exist, so in out **sanity.json**q file we will add the following under the parts array.
 
 ```json
 {
