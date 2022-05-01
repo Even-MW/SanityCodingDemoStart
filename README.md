@@ -326,7 +326,7 @@ Now we need to add our new function to our destructured function, update it like
 
 ### Step 9. Lets start building a Demo Page
 
-We start out with making a new file under the documents folder called `demoPage.ts``
+We start out with making a new file under the documents folder called **demoPage.ts**
 
 And add the following: 
 
