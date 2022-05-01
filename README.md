@@ -803,11 +803,7 @@ Set up environment variables for
 - NEXT_PUBLIC_SANITY_PROJECT_ID
 
 
-
-
-
-
-
+## Congratulations on completing this Sanity intro course. Hope you learned something usefull. And we wish you good luck on your Sanity and Next.JS adventures!   
 
 
 
