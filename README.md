@@ -341,17 +341,20 @@ export default {
 }
 ```
 
+> Remember to add it to the types in the **schema.ts** file
+
 #### Add a title to the document in the fields array
 
 ```ts
  {
    title: 'Title',
    name: 'title',
-   type: 'string,
+   type: 'string',
  }
 ```
 
-#### Add the proprty for slug
+#### We then need to add the slug for our page, with the option to autogenerate based on our title and have a max length of 200 characters. 
+
 https://www.sanity.io/docs/slug-type
 ```ts
   {
@@ -364,10 +367,32 @@ https://www.sanity.io/docs/slug-type
   }
  },
  ```
- #### Add the conditional hidden field to the slug. When no title is present the slug should be hidden
+
+ Since our slug is based on our title, we will add a conditional field to our slug. This will keep the slug field hidden in our ui until we have a title.  
+
  https://www.sanity.io/docs/conditional-fields
+
+ Underneat type add the following: 
  
- ```hidden: ({document}) => !document?.title, ```
+ ```ts
+ hidden: ({document}) => !document?.title, 
+ ```
+
+ Our slug field will then look like this:
+
+```ts
+  {
+  title: 'Slug',
+  name: 'slug',
+  type: 'slug',
+  hidden: ({document}) => !document?.title,
+  options: {
+    source: 'title',
+    maxLength: 200
+  }
+ },
+ ```
+
  
  #### Add the published date field
  https://www.sanity.io/docs/datetime-type
@@ -398,7 +423,10 @@ https://www.sanity.io/docs/image-type
     },
 },
 ```
-#### Add additional fields to the image property
+
+But we did all this in our **post** schema, let's step it up abit. We will add a fields array to the poster. It will to string fields, one for caption and one for attribution. 
+
+> Note: The caption field will have on extra property **options*, this allows the value to be shown in the ui. While **attribution** is only visible inside the image. 
 
 ```ts
 fields: [
@@ -417,8 +445,36 @@ fields: [
   }
 ]
 ```
+
+The poster filed will look like this: 
+
+```ts
+{
+  title: 'Poster',
+  name: 'poster',
+  type: 'image',
+  options: {
+      hotspot: true
+  },
+  fields: [
+      {
+          name: 'caption',
+          type: 'string',
+          title: 'Caption',
+          options: {
+              isHighlighted: true
+          }
+      },
+      {
+          name: 'attribution',
+          type: 'string',
+          title: 'Attribution',
+      }
+  ]
+},
+```
  
-#### Add a reference to the author document type
+#### We want to referance to the author in this document aswell
 
 ```ts
 {
@@ -429,9 +485,13 @@ fields: [
 },
 ```
 
-#### Add references to multiple post documents
+#### But we can also referance to other documents, even multiple documents. So let's add that.
 https://www.sanity.io/docs/array-type
 https://www.sanity.io/docs/reference-type#f300c56f43d3
+
+So instead of making a type referance, we will make a type array of type referance. 
+
+Add the following code: 
 
 ```ts
 {
@@ -452,6 +512,10 @@ https://www.sanity.io/docs/reference-type#f300c56f43d3
 #### Add portable text
 https://www.sanity.io/docs/block-type
 
+We also added the following code in our **post** schema. But we stopped there. In this we will add a bit more. 
+
+Start by adding the following: 
+
 ```ts
 {
   name: 'content',
@@ -465,7 +529,10 @@ https://www.sanity.io/docs/block-type
 },
 ```
 
-#### Add an image to the portable text
+
+We will then add an image to the portable text. 
+So inside the array add the following: 
+
 ```ts
 {
   type: 'image',
@@ -482,83 +549,42 @@ https://www.sanity.io/docs/block-type
 }
 ```
 
-#### Add a YouTube video to the portable text
-
-```ts
- {
-   type: 'youtube'
- },
-```
-
-Create a youtube object type
-
-```ts
-import React from 'react'
-import getYouTubeId from 'get-youtube-id'
-import YouTube from 'react-youtube'
-
-const Preview = ({value}) => {
-	const { url } = value
-	const id = getYouTubeId(url)
-	return (<YouTube videoId={id} />)
-}
-
-export default {
-  name: 'youtube',
-  type: 'object',
-  title: 'YouTubefilm',
-  fields: [
-    {
-      name: 'url',
-      type: 'url',
-      title: 'YouTube video URL'
-    },
-    {
-      name: 'videoLabel',
-      type: 'string',
-      title: 'Descriptive video title'
-    }
-  ],
-  preview: {
-  	select: {
-  		url: 'url'
-  	},
-  	component: Preview
-  }
-}
-```
-
-Add the following Youtube video to the document: https://www.youtube.com/watch?v=2ceM_tSus_M&t=5s
-
-#### Add a location property
-https://www.sanity.io/docs/geopoint-type
+Our content field will the look like this: 
 
 ```ts
 {
-  title: 'Location',
-  name: 'location',
-  type: 'geopoint'
- },
- ```
+  name: 'content',
+  title: 'Content',
+  type: 'array',
+  of: [
+      {
+          type: 'block'
+      },
+      {
+          type: 'image',
+          fields: [
+              {
+                  type: 'text',
+                  name: 'alt',
+                  title: 'Alternative text',
+                  options: {
+                      isHighlighted: true
+                  }
+              }
+          ]
+      }
+  ]
+},
+```
  
- #### Add a map plugin to the studio
- https://www.sanity.io/plugins/sanity-plugin-leaflet-input
  
- Add ``` "leaflet-input"``` to the plugin section in sanity.json and restart the studio from terminal
- 
-#### Add a custom string
+#### Let's step it up and make a custom string
 https://www.sanity.io/docs/custom-input-widgets
 
-```ts
-{
-  name: 'customString',
-  title: 'This is a cool custom string',
-  type: 'string',
-  inputComponent: CustomString
- },
- ```
- 
- Create a custom string object type
+First we start by adding a new folder called **objects** under **schemas**. In this folder we make a new file called **CustomString.jsx**. 
+
+To the file we add the following code: 
+
  ```ts
  import React from 'react'
 
@@ -568,7 +594,7 @@ import { TextInput, Stack, Label } from '@sanity/ui'
 export const CustomString = React.forwardRef((props, ref) => {
     return (
       <Stack space={2}>
-        <Label>{props.type.title}</Label>
+        <Label>{props.type.title} :D</Label>
         <TextInput value={props.value} />
       </Stack>
     )
@@ -579,7 +605,30 @@ export const CustomString = React.forwardRef((props, ref) => {
 export default CustomString
 ```
 
-#### Add a string with validation
+Now that we have our components, let use it in our demoPage schema. 
+
+We first have to import our component at the top of the schema. 
+So to the top of **demoPage.ts** add: 
+
+```ts
+import { CustomString } from "../objects/CustomString"
+```
+
+Then inside the fields array add the following: 
+
+```ts
+{
+  name: 'customString',
+  title: 'This is a cool custom string',
+  type: 'string',
+  inputComponent: CustomString
+ },
+ ```
+
+#### With all the fields we have added so far, we have not put much limit on how much content can be put in each field. So let's add a input field that can only have 10 characters. 
+
+Add the following: 
+
 ```ts
  {
    name: 'stringWithLimit',
@@ -589,84 +638,17 @@ export default CustomString
  },
 ```
 
-#### Add a custom validation to the string
-
-```inputComponent: StringWithLimits,```
-
-add the custom input object type
-
-```ts
-import React from 'react'
-import { FormField } from '@sanity/base/components'
-import { TextInput, Stack, Text } from '@sanity/ui'
-import PatchEvent, { set, unset } from '@sanity/form-builder/PatchEvent'
-import { useId } from "@reach/auto-id" // hook to generate unique IDs
-
-const StringWithLimits = React.forwardRef((props, ref) => {
-  const { 
-      type,         // Schema information
-      value,        // Current field value
-      readOnly,     // Boolean if field is not editable
-      placeholder,  // Placeholder text from the schema
-      markers,      // Markers including validation rules
-      presence,     // Presence information for collaborative avatars
-      compareValue, // Value to check for "edited" functionality
-      onFocus,      // Method to handle focus state
-      onBlur,       // Method to handle blur state  
-      onChange      // Method to handle patch events
-    } = props
-    
-    // Creates a unique ID for our input
-    const inputId = useId()
-    
-    const MaxConstraint = type.validation[0]._rules.filter(rule => rule.flag == 'max')[0].constraint
-
-
-    const handleChange = React.useCallback(
-      (event) => {
-        const inputValue = event.currentTarget.value
-        onChange(PatchEvent.from(inputValue ? set(inputValue) : unset()))
-      },
-      [onChange]
-    )
-    return (
-      <Stack space={1}>
-
-      <FormField
-        description={type.description}  // Creates description from schema
-        title={type.title}              // Creates label from schema title
-        __unstable_markers={markers}    // Handles all markers including validation
-        __unstable_presence={presence}  // Handles presence avatars
-        compareValue={compareValue}     // Handles "edited" status
-        inputId={inputId}               // Allows the label to connect to the input field
-      >
-        <TextInput
-          id={inputId}                  // A unique ID for this input
-          onChange={handleChange}       // A function to call when the input value changes
-          
-          value={value}                 // Current field value
-          readOnly={readOnly}           // If "readOnly" is defined make this field read only
-          placeholder={placeholder}     // If placeholder is defined, display placeholder text
-          onFocus={onFocus}             // Handles focus events
-          onBlur={onBlur}               // Handles blur events
-          ref={ref}
-        />
-        </FormField>
-        <Text style={{color: (value ? value.length : 0) > MaxConstraint ? 'red' : 'green'}} muted size={1}>{value ? value.length : '0'} / {MaxConstraint}</Text>
-      </Stack>
-    )
-  }
-)
-
-export default StringWithLimits
-```
-#### Add an icon to the document type
+#### Our demopage still only have a ugly folder as an icon, let's add en emoji instead. 
 https://www.sanity.io/docs/icons-for-data-types
+
+Above our fields array add the following:
 
 ``` icon: () => '🤩',```
 
 #### Add a preview to the document type
 https://www.sanity.io/docs/previews-list-views
+
+We can also choose what we want to show as title, subtitle and media for each of our pages. Under the fields array, add the following: 
 
 ```ts
 preview: {
@@ -678,11 +660,14 @@ preview: {
 }
 ```
 
+This set's our page title, the authors name and poster. Sanity takes the title and first media element as default. So the only extra for us now is the author. 
+
+> Task: Try to set the stringWithLimit as the title of the document and the media to the authors profile picture
+
 #### The complete document should look like this
 
 ```ts
-import CustomString from "../objects/customString"
-import StringWithLimits from "../objects/StringWithLimits"
+import { CustomString } from "../objects/CustomString"
 export default {
     name: 'demoPage',
     type: 'document',
@@ -690,171 +675,116 @@ export default {
     icon: () => '🤩',
     fields: [
         {
-          name: 'title',
-          type: 'string',
-          title: 'Title',
+            title: 'Title',
+            name: 'title',
+            type: 'string',
         },
         {
-          title: 'Slug',
-          name: 'slug',
-          type: 'slug',
-          hidden: ({document}) => !document?.title,
-          options: {
-            source: 'title',
-            maxLength: 200
-          }
-        },
-        {
-          title: 'Publish Date',
-          name: 'date',
-          type: 'datetime',
-          initialValue: (new Date()).toISOString()
-        },
-        {
-          title: 'Poster',
-          name: 'poster',
-          type: 'image',
-          options: {
-            hotspot: true
-          },
-          fields: [
-            {
-              name: 'caption',
-              type: 'string',
-              title: 'Caption',
-              options: {
-                isHighlighted: true
-              }
-            },
-            {
-              name: 'attribution',
-              type: 'string',
-              title: 'Attribution',
+            title: 'Slug',
+            name: 'slug',
+            type: 'slug',
+            hidden: ({ document }) => !document?.title,
+            options: {
+                source: 'title',
+                maxLength: 200
             }
-          ]
         },
         {
-          title: 'Author',
-          name: 'author',
-          type: 'reference',
-          to: [{type: 'author'}]
-        },
-        {
-          title: 'Multiple related posts',
-          name: 'relatedPosts',
-          type: 'array',
-          of: [
-            {
-              type: 'reference',
-              to: [
-                {type: 'post'}
-              ]
-            }
-          ]
-        },
-        {
-          name: 'content',
-          title: 'Content',
-          type: 'array',
-          of: [
-            {
-              type: 'block'
+            title: 'Poster',
+            name: 'poster',
+            type: 'image',
+            options: {
+                hotspot: true
             },
-            {
-              type: 'youtube'
-            },
-            {
-              type: 'image',
-              fields: [
+            fields: [
                 {
-                  type: 'text',
-                  name: 'alt',
-                  title: 'Alternative text',
-                  options: {
-                    isHighlighted: true
-                  }
+                    name: 'caption',
+                    type: 'string',
+                    title: 'Caption',
+                    options: {
+                        isHighlighted: true
+                    }
+                },
+                {
+                    name: 'attribution',
+                    type: 'string',
+                    title: 'Attribution',
                 }
-              ]
-            }
-          ]
+            ]
         },
         {
-          title: 'Location',
-          name: 'location',
-          type: 'geopoint'
+            title: 'Author',
+            name: 'author',
+            type: 'reference',
+            to: [{ type: 'author' }]
         },
         {
-          name: 'customString',
-          title: 'This is a cool custom string',
-          type: 'string',
-          inputComponent: CustomString
+            title: 'Multiple related posts',
+            name: 'relatedPosts',
+            type: 'array',
+            of: [
+                {
+                    type: 'reference',
+                    to: [
+                        { type: 'post' }
+                    ]
+                }
+            ]
         },
         {
-          name: 'stringWithLimit',
-          title: 'This is a string with validation',
-          type: 'string',
-          inputComponent: StringWithLimits,
-          validation: Rule => Rule.max(10)
+            name: 'content',
+            title: 'Content',
+            type: 'array',
+            of: [
+                {
+                    type: 'block'
+                },
+                {
+                    type: 'image',
+                    fields: [
+                        {
+                            type: 'text',
+                            name: 'alt',
+                            title: 'Alternative text',
+                            options: {
+                                isHighlighted: true
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            name: 'customString',
+            title: 'This is a cool custom string',
+            type: 'string',
+            inputComponent: CustomString
+        },
+        {
+            name: 'stringWithLimit',
+            title: 'This is a string with validation',
+            type: 'string',
+            validation: Rule => Rule.max(10)
         },
     ],
     preview: {
-      select: {
-        title: 'title',
-        subtitle: 'author.name',
-        media: 'poster'
-      }
+        select: {
+            title: 'title',
+            subtitle: 'author.name',
+            media: 'poster'
+        }
     }
 }
 ``` 
 
-
-### Step 10. Add a dashboard to the studio
-https://www.sanity.io/docs/dashboard
-
-#### Enable dashboards
-Add ```{
-      "implements": "part:@sanity/dashboard/config",
-      "path": "./dashboardConfig.js"
-    },``` to the parts list and ``` "@sanity/dashboard",```to the plugins list in sanity.json 
-
-Create the dashboardConfig.js
-
-``` 
-export default {
-  widgets: [
-   
-    {name: 'structure-menu'},
-    {name: 'project-users', layout: {height: 'auto', widht:'medium'}},
-    {
-      name: 'document-list',
-      options: {title: 'Recently edited', order: '_updatedAt desc', limit: 10, types: ['post']},
-      layout: {width: 'medium'}
-    }
-  ]
-}
-```
-And finally restart the studio from terminal
-
-#### Add a widget to the dashboard
-https://www.sanity.io/docs/creating-your-own-widget
-
-Run ```sanity init plugin```in the studio folder and choose "A Dashboard with cats" and accept all default values
-Add ``` {name: 'cats',  layout: {width: 'full'}},``` to dashboardConfig.js
-
-### Step 11. Change the UI of Sanity Studio
-https://www.sanity.io/docs/styling
-https://www.sanity.io/plugins/sanity-plugin-hotdog-stand
-
-From the studio folder run ```sanity install hotdog-stand``` and restart the studio from terminal
-
-### Step 12. Get content from Sanity to front end
+### Step 10. Get content from Sanity to front end
 https://www.sanity.io/docs/how-queries-work
 
 In a browser navigate to https://localhost:3000/dempPage/[slug]
 Go to the Web/pages/demoPage/[slug].js. In getStaticProps the Sanity Client fetches data from Sanity. 
 Open /Web/lib/queries.js. demoPageQuery uses GROQ to fetch data from Sanity
 
-### Step 13. Deploy to vercel
+### Step 11. Deploy to vercel
 https://vercel.com/guides/deploying-nextjs-with-vercel
 
 - Go to Vercel account and click "New Project"
