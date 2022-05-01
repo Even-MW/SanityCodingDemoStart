@@ -87,7 +87,7 @@ Reference to Sanity schema types: https://www.sanity.io/docs/schema-types
 
 We don't have the options to add much content in our cms yet, let's fix that. 
 
-First let's make a new file in our studio in the folder **/documents** under schemas, we will call it **author** and add the following code: 
+First let's make a new file in our studio in the folder **/documents** under schemas, we will call it **author.ts** and add the following code: 
 
 #### First we define the name, type, title and fields as an empty array
 
