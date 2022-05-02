@@ -148,8 +148,6 @@ export default {
 };
 ```
 
-> Remeber to import this file in the **schema.ts** file under types. 
-
 #### Lets start by adding a title
 
 ```ts 
@@ -220,7 +218,7 @@ https://www.sanity.io/docs/datetime-type
 },
 ```
 
-#### And finally lets add an referance to who the author is. 
+#### And finally lets add an reference to who the author is. 
 
 Here we are refering to the first author object we made.
 https://www.sanity.io/docs/reference-type
@@ -239,7 +237,7 @@ https://www.sanity.io/docs/structure-builder-introduction
 
 >When we do changes in this step we need to restart our studio build for every change. You stop the build with `cmd/ctrl + c`. 
 
-We have startet on this for you in the `deskStructure.ts`file. But we need to let the studio know this exist, so in out **sanity.json** file we will add the following under the parts array.
+We have started on this for you in the `deskStructure.ts`file. But we need to let the studio know this exist, so in our **sanity.json** file we will add the following under the parts array.
 
 ```json
 {
@@ -248,8 +246,8 @@ We have startet on this for you in the `deskStructure.ts`file. But we need to le
 }
 ```
 
-We will no longer see our posts and authors, because our deskStructur is an empty list. 
-We fix this by adding a listItem. hehe
+We will no longer see our posts and authors, because our deskStructure is an empty list. 
+We fix this by adding a listItem.
 
 Inside the items array on line 27 of the deskStructure, add the following to the array: 
 
@@ -271,11 +269,14 @@ S.listItem()
   .child(S.documentTypeList("author").title("Authors")),
 ```
 
-When you go into a post now you can see that there is a new tab called preview. This is been added with the `getDefaultDocumentNode` function in the deskStructur. This is set up by us. You can read more about it here: https://www.sanity.io/docs/preview-content-on-site 
+
+#### Remember to import this file in the **schema.ts** file under types. 
+
+When you go into a post now, you can see that there is a new tab called preview. This is been added with the `getDefaultDocumentNode` function in the deskStructure. This is set up by us. You can read more about it here: https://www.sanity.io/docs/preview-content-on-site 
 
 
 
-#### Now that we yet again can see out posts and authors, lets add a menu that sorts the posts by author
+#### Now that we yet again can see our posts and authors, lets add a menu that sorts the posts by author
 This is where we see the usefullness of the deskStructure
 
 Add the following to items array:
@@ -312,7 +313,7 @@ Add the following
 
 But now we get a dublicate of the author and post, and we don't need that. So lets filter those out.
 
-Under our comments on line 7 and 8 in deskStructur.ts add the following function: 
+Under our comments on line 7 and 8 in deskStructure.ts add the following function: 
 
 ```ts
 const hiddenDocTypes = (listItem) => !["post", "author"].includes(listItem.getId());
@@ -341,7 +342,7 @@ export default {
 }
 ```
 
-> Remember to add it to the types in the **schema.ts** file
+#### Remember to add it to the types in the **schema.ts** file
 
 #### Add a title to the document in the fields array
 
@@ -478,7 +479,7 @@ The poster filed will look like this:
 },
 ```
  
-#### We want to referance to the author in this document aswell
+#### We want to referance to the author in this document as well
 
 ```ts
 {
@@ -489,11 +490,11 @@ The poster filed will look like this:
 },
 ```
 
-#### But we can also referance to other documents, even multiple documents. So let's add that.
+#### But we can also reference other documents, even multiple documents. So let's add that.
 https://www.sanity.io/docs/array-type
 https://www.sanity.io/docs/reference-type#f300c56f43d3
 
-So instead of making a type referance, we will make a type array of type referance. 
+So instead of making a type reference, we will make a type array of type reference. 
 
 Add the following code: 
 
@@ -516,7 +517,7 @@ Add the following code:
 #### Add portable text
 https://www.sanity.io/docs/block-type
 
-We also added the following code in our **post** schema. But we stopped there. In this we will add a bit more. 
+We also added the following code in our **post** schema. But we stopped there. Now we will add a bit more. 
 
 Start by adding the following: 
 
@@ -585,7 +586,7 @@ Our content field will the look like this:
 #### Let's step it up and make a custom string
 https://www.sanity.io/docs/custom-input-widgets
 
-First we start by adding a new folder called **objects** under **schemas**. In this folder we make a new file called **CustomString.jsx**. 
+First we start by adding a new folder called **objects** under **schemas**. In this folder we make a new file called **CustomString.tsx**. 
 
 To the file we add the following code: 
 
@@ -609,7 +610,7 @@ export const CustomString = React.forwardRef((props, ref) => {
 export default CustomString
 ```
 
-Now that we have our components, let use it in our demoPage schema. 
+Now that we have our components, let's use it in our demoPage schema. 
 
 We first have to import our component at the top of the schema. 
 So to the top of **demoPage.ts** add: 
