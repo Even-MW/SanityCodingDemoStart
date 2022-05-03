@@ -25,14 +25,14 @@ export const postSlugsQuery = `
 *[_type == "post" && defined(slug.current)][].slug.current
 `;
 
-export const demoPageQuery = `{"demoPage": *[_type == "demoPage" && slug.current == $slug] | order(_updatedAt desc) [0] {
+export const demoPageQuery = `{"demoPage": *[_type == "demoPage" && slug.current == $slug] [0] {
   _id,
   title,
   date,
   poster,
   content,
   "slug": slug.current,
-  "author": author->{name, picture}
+  "author": author->{name, picture},
 } }`;
 
 export const demoPageSlugsQuery = `
