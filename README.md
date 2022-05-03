@@ -290,7 +290,7 @@ Add the following to items array:
        .title("Posts by author")
        .child(
          (_id) =>
-           S.documentList("post")
+           S.documentTypeList("post")
              .schemaType("post")
              .title("Posts by author")
              .filter('_type == "post" && author._ref == $_id')
