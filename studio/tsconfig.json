@@ -1,8 +1,16 @@
 {
-    "include": ["./node_modules/@sanity/base/types/**/*.ts", "./**/*.ts", "./**/*.tsx"],
-    "compilerOptions": {
-        "allowJs": true,
-        "checkJs": true,
-        "strict": false
-    }
+  "include": [
+    "./node_modules/@sanity/base/types/**/*.ts",
+    "./**/*.ts",
+    "./**/*.tsx"
+  ],
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "strict": false,
+    "jsx": "preserve",
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node"
+  }
 }
