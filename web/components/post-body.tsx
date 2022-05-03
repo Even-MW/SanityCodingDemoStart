@@ -1,23 +1,26 @@
-import {PortableText} from '@portabletext/react';
-import {PortableTextComponents} from '@portabletext/react'
-import YouTube from "react-youtube";
-import getYouTubeId from "get-youtube-id";
-import markdownStyles from "./markdown-styles.module.css";
+import { PortableText } from "@portabletext/react";
+import Image from "next/image";
+import { urlForImage } from "../lib/sanity";
 
-const serializers: PortableTextComponents = {
-    types: {
-        youtube: ({ value }) => {
-            const { url } = value;
-            const id = getYouTubeId(url);
-            return <YouTube videoId={id} />;
-        },
-    },
+const serializers = {
+  types: {
+    image: ({ value }) => (
+      <>
+        <Image
+          width={500}
+          height={500}
+          src={urlForImage(value).height(500).width(500).url()}
+        />
+        <p>{value.alt}</p>
+      </>
+    ),
+  },
 };
 
 export default function PostBody({ content }) {
-    return (
-        <div className="mx-auto max-w-2xl">
-            <PortableText value={content} components={serializers} />
-        </div>
-    );
+  return (
+    <div className="mx-auto max-w-2xl mt-10 mb-20">
+      <PortableText value={content} components={serializers} />
+    </div>
+  );
 }
