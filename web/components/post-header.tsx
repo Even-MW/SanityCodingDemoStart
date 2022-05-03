@@ -1,6 +1,6 @@
 import Avatar from "./avatar";
-import Date from "./date";
 import CoverImage from "./cover-image";
+import Date from "./date";
 import PostTitle from "./post-title";
 
 export default function PostHeader({ title, coverImage, date, author }) {
@@ -11,7 +11,7 @@ export default function PostHeader({ title, coverImage, date, author }) {
                 <Avatar name={author.name} picture={author.picture} />
             </div>
             <div className="mb-8 sm:mx-0 md:mb-16">
-                <CoverImage title={title} image={coverImage} />
+                <CoverImage slug={""} title={title} image={coverImage} />
             </div>
             <div className="mx-auto max-w-2xl">
                 <div className="mb-6 block md:hidden">
